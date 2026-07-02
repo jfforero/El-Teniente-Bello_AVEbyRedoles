@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Teniente Bello — Selección de experiencia</title>
+  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #050510;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    #screen-ui {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 30%, #1a1a3a44 0%, transparent 60%);
+    }
+
+    #screen-ui > * { pointer-events: auto; }
+
+    .hero {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 32px;
+      max-width: 640px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      opacity: 0.75;
+      font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+      line-height: 1.5;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      width: min(720px, 100%);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 24px;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card:hover, .card:focus-visible {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.28);
+      outline: none;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.55;
+      font-weight: 600;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 650;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.88rem;
+      opacity: 0.72;
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    .card-cta {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #8ec8ff;
+      margin-top: 4px;
+    }
+
+    .card-panorama { border-top: 3px solid #5b8def; }
+    .card-vr { border-top: 3px solid #c97bff; }
+
+    #vr-hint {
+      margin-top: 28px;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    a-scene { position: fixed; inset: 0; }
+
+    @media (max-width: 600px) {
+      #screen-ui { justify-content: flex-end; padding-bottom: 40px; }
+      .hero { margin-bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<a-scene
+  embedded
+  vr-mode-ui="enabled: true"
+  renderer="antialias: true; colorManagement: true"
+  background="color: #050510">
+
+  <a-assets>
+    <img id="starfield" crossorigin="anonymous"
+         src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='256'%3E%3Crect fill='%23050510' width='512' height='256'/%3E%3Ccircle cx='40' cy='30' r='1' fill='white' opacity='.8'/%3E%3Ccircle cx='120' cy='80' r='1.2' fill='white' opacity='.6'/%3E%3Ccircle cx='200' cy='40' r='.8' fill='white' opacity='.9'/%3E%3Ccircle cx='280' cy='120' r='1' fill='white' opacity='.7'/%3E%3Ccircle cx='360' cy='60' r='1.4' fill='white' opacity='.5'/%3E%3Ccircle cx='440' cy='150' r='1' fill='white' opacity='.8'/%3E%3Ccircle cx='80' cy='180' r='.9' fill='white' opacity='.6'/%3E%3Ccircle cx='160' cy='200' r='1.1' fill='white' opacity='.7'/%3E%3Ccircle cx='320' cy='210' r='1' fill='white' opacity='.55'/%3E%3Ccircle cx='480' cy='90' r='1.3' fill='white' opacity='.65'/%3E%3C/svg%3E">
+  </a-assets>
+
+  <a-sky src="#starfield" rotation="0 -30 0"></a-sky>
+
+  <a-entity light="type: ambient; color: #334; intensity: 0.6"></a-entity>
+  <a-entity light="type: directional; color: #aaf; intensity: 0.35" position="1 2 1"></a-entity>
+
+  <!-- Title in VR space -->
+  <a-text
+    value="EL TENIENTE BELLO"
+    align="center"
+    width="5"
+    position="0 2.55 -3.2"
+    color="#e8eeff"
+    shader="msdf"
+    font="https://cdn.aframe.io/fonts/Roboto-msdf.json">
+  </a-text>
+  <a-text
+    value="Mauricio Redoles · AVE by Redoles"
+    align="center"
+    width="3.5"
+    position="0 2.15 -3.2"
+    color="#8899bb"
+    shader="msdf"
+    font="https://cdn.aframe.io/fonts/Roboto-msdf.json">
+  </a-text>
+
+  <!-- Panorama project card -->
+  <a-entity
+    id="vr-card-panorama"
+    class="clickable"
+    position="-1.55 1.35 -2.6"
+    project-link="href: index.html"
+    animation__hover="property: scale; to: 1.04 1.04 1.04; dur: 200; easing: easeOutQuad; startEvents: mouseenter; pauseEvents: mouseleave"
+    animation__leave="property: scale; to: 1 1 1; dur: 200; easing: easeOutQuad; startEvents: mouseleave">
+    <a-plane
+      width="1.5" height="1.05"
+      color="#0d1528"
+      opacity="0.92"
+      material="shader: flat; side: double"
+      position="0 0 0">
+    </a-plane>
+    <a-plane width="1.5" height="0.04" color="#5b8def" position="0 0.505 0.001"></a-plane>
+    <a-text value="PANORAMA 360" align="center" width="1.3" position="0 0.28 0.01" color="#5b8def"
+            shader="msdf" font="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-text>
+    <a-text value="Visor inmersivo con audio\n4 fragmentos del poema" align="center" width="1.25" position="0 -0.05 0.01" color="#ccd6ee"
+            shader="msdf" font="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-text>
+    <a-text value="Entrar  →" align="center" width="1" position="0 -0.32 0.01" color="#8ec8ff"
+            shader="msdf" font="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-text>
+  </a-entity>
+
+  <!-- VR / A-Frame project card -->
+  <a-entity
+    id="vr-card-bello"
+    class="clickable"
+    position="1.55 1.35 -2.6"
+    project-link="href: BelloSilva.html"
+    animation__hover="property: scale; to: 1.04 1.04 1.04; dur: 200; easing: easeOutQuad; startEvents: mouseenter; pauseEvents: mouseleave"
+    animation__leave="property: scale; to: 1 1 1; dur: 200; easing: easeOutQuad; startEvents: mouseleave">
+    <a-plane
+      width="1.5" height="1.05"
+      color="#120d20"
+      opacity="0.92"
+      material="shader: flat; side: double"
+      position="0 0 0">
+    </a-plane>
+    <a-plane width="1.5" height="0.04" color="#c97bff" position="0 0.505 0.001"></a-plane>
+    <a-text value="AVE · REALIDAD VR" align="center" width="1.3" position="0 0.28 0.01" color="#c97bff"
+            shader="msdf" font="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-text>
+    <a-text value="Entorno 360° generativo\nvoz, emoción y avión" align="center" width="1.25" position="0 -0.05 0.01" color="#dcc8ee"
+            shader="msdf" font="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-text>
+    <a-text value="Entrar en VR  →" align="center" width="1" position="0 -0.32 0.01" color="#e0b0ff"
+            shader="msdf" font="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-text>
+  </a-entity>
+
+  <!-- Floor reference ring -->
+  <a-ring
+    radius-inner="2.8" radius-outer="2.82"
+    rotation="-90 0 0" position="0 0.01 -1"
+    color="#ffffff" opacity="0.06"
+    material="shader: flat; transparent: true">
+  </a-ring>
+
+  <a-entity id="rig" position="0 0 0">
+    <a-entity
+      id="camera"
+      camera
+      look-controls="pointerLockEnabled: false"
+      wasd-controls="acceleration: 20"
+      position="0 1.6 0">
+      <a-cursor
+        id="cursor"
+        raycaster="objects: .clickable; far: 20"
+        animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+        animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+        animation__mouseleave="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 150"
+        fuse="true"
+        fuse-timeout="1200">
+      </a-cursor>
+    </a-entity>
+  </a-entity>
+</a-scene>
+
+<!-- 2D overlay for desktop / mobile (always accessible) -->
+<div id="screen-ui">
+  <div class="hero">
+    <h1>El Teniente Bello</h1>
+    <p>Experiencia audiovisual inmersiva · Poema de Mauricio Redolés · Entornos generados por AVE</p>
+  </div>
+
+  <div class="cards">
+    <a class="card card-panorama" href="index.html">
+      <span class="card-tag">Proyecto 1</span>
+      <h2>Panorama 360°</h2>
+      <p>Visor panorámico con audio sincronizado. Cuatro fragmentos del poema en escenas equirectangulares.</p>
+      <span class="card-cta">Abrir index.html →</span>
+    </a>
+    <a class="card card-vr" href="BelloSilva.html">
+      <span class="card-tag">Proyecto 2</span>
+      <h2>AVE · Realidad Virtual</h2>
+      <p>Entorno 360° en A-Frame con transcripción, voz y animación. Compatible con gafas VR (WebXR).</p>
+      <span class="card-cta">Abrir BelloSilva.html →</span>
+    </a>
+  </div>
+
+  <p id="vr-hint">En gafas VR: mira una tarjeta y mantén la mirada, o usa el botón VR abajo a la derecha.</p>
+</div>
+
+<script>
+AFRAME.registerComponent("project-link", {
+  schema: { href: { type: "string" } },
+  init() {
+    const navigate = () => { window.location.href = this.data.href; };
+    this.el.addEventListener("click", navigate);
+    this.el.addEventListener("fusing", navigate);
+  }
+});
+
+(function hideScreenUiInVr() {
+  const scene = document.querySelector("a-scene");
+  const screenUi = document.getElementById("screen-ui");
+
+  scene.addEventListener("enter-vr", () => {
+    screenUi.style.display = "none";
+  });
+
+  scene.addEventListener("exit-vr", () => {
+    screenUi.style.display = "flex";
+  });
+})();
+</script>
+
+</body>
+</html>
