@@ -22,9 +22,17 @@
     #audio-player { width:80%; margin-bottom:10px; }
     #audio-info { text-align:center; font-size:14px; }
     select { padding:5px; border-radius:3px; border:1px solid #ccc; }
+    .home-link {
+      position: fixed; top: 16px; left: 16px; z-index: 1001;
+      color: white; text-decoration: none; font-size: 0.75rem;
+      letter-spacing: 0.06em; padding: 8px 14px; border-radius: 999px;
+      background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .home-link:hover { background: rgba(255,255,255,0.12); }
   </style>
 </head>
 <body>
+  <a href="index.html" class="home-link">&larr; Volver</a>
   <div id="controls">
     <select id="image-selector">
       <option value="0">Chunk 1</option><option value="1">Chunk 2</option><option value="2">Chunk 3</option><option value="3">Chunk 4</option>
