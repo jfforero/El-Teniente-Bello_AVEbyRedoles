@@ -6,16 +6,18 @@
   <title>El Teniente Bello</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
     :root {
       --bg: #080808;
-      --fg: #f2f2f2;
-      --muted: #6b6b6b;
-      --line: rgba(255, 255, 255, 0.09);
-      --accent: #c8c8c8;
+      --fg: #f8f8f8;
+      --muted: #a8a8a8;
+      --line: rgba(255, 255, 255, 0.1);
+      --coral: #ff6b5b;
+      --coral-soft: rgba(255, 107, 91, 0.12);
+      --coral-glow: rgba(255, 107, 91, 0.35);
     }
 
     html, body {
@@ -24,8 +26,10 @@
       background: var(--bg);
       color: var(--fg);
       font-family: "Inter", system-ui, sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
     #ui {
@@ -40,24 +44,57 @@
     .header {
       text-align: center;
       margin-bottom: 64px;
-      max-width: 520px;
+      max-width: 540px;
+    }
+
+    .header-eyebrow {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--coral);
     }
 
     .header h1 {
-      margin: 0 0 16px;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 300;
-      letter-spacing: 0.18em;
+      margin: 0 0 20px;
+      font-size: clamp(2.1rem, 5vw, 3.2rem);
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      line-height: 1.15;
+      line-height: 1.1;
+      color: var(--fg);
+    }
+
+    .header h1::after {
+      content: "";
+      display: block;
+      width: 32px;
+      height: 2px;
+      margin: 18px auto 0;
+      background: linear-gradient(90deg, transparent, var(--coral), transparent);
+      border-radius: 1px;
     }
 
     .header p {
       margin: 0;
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
+    }
+
+    .header p em {
+      font-style: normal;
+      font-weight: 500;
+      color: #e0e0e0;
+    }
+
+    .header p strong {
+      font-weight: 500;
+      color: var(--coral);
     }
 
     .projects {
@@ -67,6 +104,7 @@
       width: min(640px, 100%);
       background: var(--line);
       border: 1px solid var(--line);
+      box-shadow: 0 0 0 1px var(--coral-soft);
     }
 
     .project {
@@ -78,46 +116,59 @@
       background: var(--bg);
       color: var(--fg);
       text-decoration: none;
-      transition: background 0.25s ease;
+      border-left: 2px solid transparent;
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
     .project:hover,
     .project:focus-visible {
-      background: #111;
+      background: #0f0f0f;
+      border-left-color: var(--coral);
       outline: none;
     }
 
     .project-label {
       font-size: 0.65rem;
+      font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--coral);
+      opacity: 0.75;
       margin-bottom: 20px;
+      transition: opacity 0.25s ease;
+    }
+
+    .project:hover .project-label,
+    .project:focus-visible .project-label {
+      opacity: 1;
     }
 
     .project h2 {
       margin: 0 0 12px;
-      font-size: 1.05rem;
-      font-weight: 400;
-      letter-spacing: 0.02em;
+      font-size: 1.08rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--fg);
     }
 
     .project-desc {
       margin: 0;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
+      font-weight: 400;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
       flex: 1;
     }
 
     .project-arrow {
       margin-top: 28px;
       font-size: 0.75rem;
+      font-weight: 500;
       letter-spacing: 0.08em;
-      color: var(--accent);
+      color: var(--coral);
       opacity: 0;
       transform: translateX(-4px);
-      transition: opacity 0.25s, transform 0.25s;
+      transition: opacity 0.25s, transform 0.25s, color 0.25s;
     }
 
     .project:hover .project-arrow,
@@ -133,14 +184,22 @@
       right: 0;
       text-align: center;
       font-size: 0.65rem;
+      font-weight: 400;
       letter-spacing: 0.1em;
       color: var(--muted);
       pointer-events: none;
     }
 
+    .footer-dot {
+      color: var(--coral);
+      opacity: 0.6;
+      margin: 0 0.35em;
+    }
+
     @media (max-width: 560px) {
       .projects { grid-template-columns: 1fr; }
-      .project { min-height: 160px; }
+      .project { min-height: 160px; border-left: none; border-top: 2px solid transparent; }
+      .project:hover, .project:focus-visible { border-left: none; border-top-color: var(--coral); }
       .header { margin-bottom: 40px; }
       .project-arrow { opacity: 1; transform: none; }
     }
@@ -150,8 +209,9 @@
 
 <div id="ui">
   <header class="header">
+    <span class="header-eyebrow">El Teniente</span>
     <h1>Bello</h1>
-    <p>Entornos Afectivos Virtuales (AVE) creados con el poema contenido en la canción "El Teniente Bello" de Mauricio Redolés<br>en el disco "Química (De la Lucha de Clases)" 1991.</p>
+    <p>Entornos Afectivos Virtuales (<em>AVE</em>) creados con el poema contenido en la canción <strong>El Teniente Bello</strong> de Mauricio Redolés<br>en el disco <em>Química (De la Lucha de Clases)</em> 1991.</p>
   </header>
 
   <nav class="projects" aria-label="Selección de experiencia">
@@ -174,7 +234,7 @@
   </nav>
 </div>
 
-<p class="footer">The Ironic Machine[s] · Jorge Forero</p>
+<p class="footer">The Ironic Machine[s]<span class="footer-dot" aria-hidden="true">·</span>Jorge Forero</p>
 
 </body>
 </html>
